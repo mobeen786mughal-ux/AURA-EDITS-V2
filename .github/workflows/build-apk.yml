@@ -1,0 +1,38 @@
+name: Build Aura Edits V2 APK
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Unzip Project
+        run: unzip aura_edits_v2.zip
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Build APK
+        working-directory: ./aura_edits_v2
+        run: |
+          flutter create . --project-name aura_edits
+          flutter build apk --release
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Aura-Edits-V2-APK
+          path: ./aura_edits_v2/build/app/outputs/flutter-apk/app-release.apk
