@@ -3,7 +3,7 @@ name: Build Aura Edits APK
 on:
   push:
     branches: [ "main" ]
-  workflow_dispatch: # Isse aap manually bhi build chala sakte hain
+  workflow_dispatch: 
 
 jobs:
   build:
