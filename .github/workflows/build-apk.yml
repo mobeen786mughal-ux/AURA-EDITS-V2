@@ -1,12 +1,14 @@
-name: Build Aura Edits V2 APK
+name: Build Aura Edits APK
 
 on:
   push:
     branches: [ "main" ]
+  workflow_dispatch: # Isse aap manually bhi build chala sakte hain
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -24,6 +26,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          cache: true
 
       - name: Build APK
         working-directory: ./aura_edits_v2
